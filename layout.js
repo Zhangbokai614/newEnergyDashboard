@@ -5,9 +5,9 @@ function createDiv(id, node, style) {
     node === 'body' ? document.body.appendChild(newDiv) : document.querySelector('#' + node).appendChild(newDiv)
 }
 
-document.body.className = 'max-h-full h-screen flex flex-col bg-blue-900'
-createDiv('head', 'body', ['h-28', 'w-full', 'shadow-lg', 'border-b-4', 'border-yellow-400', 'border-opacity-95', 'text-7xl', 'h1', 'italic', 'text-center', 'text-blue-400'])
-document.querySelector('.h1').innerHTML = "好看的大屏"
+document.body.className = 'max-h-full h-screen flex flex-col '
+createDiv('head', 'body', ['h-28', 'w-full', 'h1', 'text-green-500', 'text-center', 'text-4xl', 'flex', 'items-center', 'justify-center'])
+document.querySelector('.h1').innerHTML = "新能源汽车数据分析大屏"
     // document.querySelector('#head').style = "background-image: url(./image/gg.jpg)"
 
 createDiv('content', 'body', ['flex', 'flex-grow', 'grid', 'grid-cols-10', 'bg-cover', 'bg-center'])
@@ -17,16 +17,22 @@ createDiv('left', 'content', ['h-auto', 'col-span-3', 'flex', 'flex-col'])
 createDiv('middle', 'content', ['h-auto', 'col-span-4', 'flex', 'flex-col'])
 createDiv('right', 'content', ['h-auto', 'col-span-3', 'flex', 'flex-col'])
 
-createDiv('crad', 'left', ['h-full', 'm-3', 'bg-blue-400', 'bg-opacity-40', 'shadow-md', 'border'])
-createDiv('crad2', 'left', ['h-full', 'm-3', 'bg-blue-400', 'bg-opacity-40', 'shadow-md', 'border'])
-createDiv('crad3', 'left', ['h-full', 'm-3', 'bg-blue-400', 'bg-opacity-40', 'shadow-md', 'border'])
+createDiv('crad', 'left', ['h-full', 'm-3', 'bg-opacity-40', 'shadow-md', 'border', 'box'])
+createDiv('crad2', 'left', ['h-full', 'm-3', 'bg-opacity-40', 'shadow-md', 'border', 'box'])
+createDiv('crad3', 'left', ['h-full', 'm-3', 'bg-opacity-40', 'shadow-md', 'border', 'box'])
 
-createDiv('right0', 'right', ['h-full', 'm-3', 'rounded', 'border', 'border-blue-300', 'shadow-md'])
-createDiv('right1', 'right', ['h-full', 'm-3', 'rounded', 'border', 'border-blue-300', 'shadow-md'])
-createDiv('right2', 'right', ['h-full', 'm-3', 'rounded', 'border', 'border-blue-300', 'shadow-md'])
+createDiv('middle0', 'middle', ['h-1/4', 'm-3', 'rounded', 'border', 'border-blue-300', 'shadow-md'])
+createDiv('middle1', 'middle', ['h-3/4'])
+
+createMap('chinaMap', 'middle1')
+
+createDiv('right0', 'right', ['h-full', 'm-3', 'bg-opacity-40', 'shadow-md', 'border', 'box'])
+createDiv('right1', 'right', ['h-full', 'm-3', 'bg-opacity-40', 'shadow-md', 'border', 'box'])
+createDiv('right2', 'right', ['h-full', 'm-3', 'bg-opacity-40', 'shadow-md', 'border', 'box'])
 
 carateBarCharts('bar', 'crad')
 carateBarCharts('xx', 'crad2')
 carateBarCharts('x', 'crad3')
 
 createRight2('EchartsRight2', 'right2', newCar)
+createRight0('EchartsRight0', 'right0')
