@@ -1,19 +1,29 @@
+body {
+    background-color: #000000;
+    background-image: radial-gradient(ellipse farthest-corner at center top, #2d2d4e 0%, #000000 60%);
+}
+
 .box {
     box-shadow: 0px 0px 2px 2px rgba(58, 184, 243, 0.87);
     border-top: 1px transparent solid;
     border-bottom: 2px transparent solid;
     border-image: linear-gradient(to right, #23b7cb, #000418, #23b7cb) 1 10;
+    
 }
 
-.h1 {
-    /* box-shadow: 0px 0px 5px 1px rgba(58, 243, 166, 0.87); */
-    margin-bottom: 5px;
-    border-bottom: 2px transparent solid;
-    border-image: linear-gradient(to right, #23b7cb, #000718, #23b7cb) 1 10;
-    text-shadow: 2px 2px 3px #bcbdf57a;
-}
+/* @import url(https://fonts.googleapis.com/css?family=Pacifico); */
 
-body {
-    background-color: #000000;
-    background-image: radial-gradient(ellipse farthest-corner at center top, #2d2d4e 0%, #000000 60%);
+@keyframes shining {
+  from {
+    text-shadow: 0 0 1px rgba(222, 235, 233, 0.722),
+      0 0 30px rgba(182, 211, 207, 0.3), 0 0 12px rgba(15, 115, 223, 0.5),
+      0 0 21px rgba(15, 115, 223, 0.9), 0 0 34px rgba(15, 115, 223, 0.8),
+      0 0 54px rgba(15, 115, 223, 0.9);
+  }
+  to {
+    text-shadow: 0 0 1px rgba(222, 235, 233, 0.622),
+      0 0 30px rgba(182, 211, 207, 0.4), 0 0 12px rgba(15, 115, 223, 0.6),
+      0 0 22px rgba(15, 115, 223, 0.8), 0 0 38px rgba(15, 115, 223, 0.9),
+      0 0 60px rgba(15, 115, 223, 1);
+  }
 }
