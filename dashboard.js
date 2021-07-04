@@ -1,342 +1,55 @@
-const body = document.body
-
-const titleStyle = {
-  color: "#fff",
-  fontStyle: "normal",
-  fontWeight: "normal",
-  fontFamily: "sans-serif",
-  fontSize: 22,
-  lineHeight: "38",
-  textBorderColor: "transparent",
-  textBorderWidth: 1,
-  textShadowColor: "black",
-  textShadowBlur: 3,
-  textShadowOffsetX: 3,
-  textShadowOffsetY: 2,
+function createDiv(id, node, style) {
+    const newDiv = document.createElement('div')
+    newDiv.classList.add(...style)
+    newDiv.id = id
+    node === 'body' ? document.body.appendChild(newDiv) : document.querySelector('#' + node).appendChild(newDiv)
 }
 
-const fontStyle = {
-  color: "#fff",
-  fontStyle: "normal",
-  fontWeight: "normal",
-  fontFamily: "sans-serif",
-  fontSize: 12,
-  lineHeight: "38",
-  textBorderColor: "transparent",
-  textBorderWidth: 1,
-  textShadowColor: "black",
-  textShadowBlur: 3,
-  textShadowOffsetX: 3,
-  textShadowOffsetY: 2,
+function createButton (id, node, click, text, style) {
+    const button = document.createElement('button')
+    button.classList.add(...style)
+    button.id = id
+    button.innerHTML = text
+    button.onclick = click
+    node === 'body' ? document.body.appendChild(button) : document.querySelector('#' + node).appendChild(button)
 }
 
-function carateBarCharts(chartsName, node, data, title, yName) {
-  let div = document.createElement('div')
-  div.id = chartsName
-  div.style = 'width: 100%;height:100%;'
-  document.querySelector('#' + node).appendChild(div)
-  const chart = document.querySelector("#" + chartsName)
-  const myChart = echarts.init(chart)
-  const option = {
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '0%',
-      containLabel: true
-    },
-    title: {
-      text: title,
-      textStyle: titleStyle,
-    },
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      },
-    },
-    legend: {
-      data: ['销量'],
-      right: '2%',
-      top: '4%',
-      textStyle: fontStyle,
-    },
-    xAxis: {
-      data: data.map(item => item.name),
-      axisLabel: {
-        color: '#000',
-        interval: 0,
-        formatter: function (value) {
-          return value.split("").join("\n");
-        },
-        textStyle: {
-          fontSize: 8,
-          color: '#fff',
-        }
-      },
-    },
-    yAxis: {},
-    series: [{
-      name: yName,
-      type: 'bar',
-      data: data.map(item => item.value),
-    }]
-  };
-  myChart.setOption(option);
-}
+document.body.className = 'max-h-full h-screen flex flex-col '
+createDiv('head', 'body', ['h-36', 'w-full', 'h1', 'text-center', 'font-mono','text-6xl', 'flex', 'items-center', 'justify-center', 'z-50'])
 
-function createRingCharts(chartsName, node, data, title) {
-  let div = document.createElement('div')
-  div.id = chartsName
-  div.style = 'width: 100%;height:100%;'
-  document.querySelector('#' + node).appendChild(div)
-  const chart = document.querySelector("#" + chartsName)
-  const myChart = echarts.init(chart)
-  const option = {
-    title: {
-      text: title,
-      textStyle: titleStyle,
-    },
-    toolbox: {
-      show: true,
-      feature: {
-        mark: { show: true },
-        dataView: { show: true, readOnly: false },
-        restore: { show: true },
-        saveAsImage: { show: true }
-      }
-    },
-    series: [{
-      name: "装机占比",
-      type: 'pie',
-      radius: [20, 86],
-      center: ['50%', '60%'],
-      roseType: 'area',
-      itemStyle: {
-        borderRadius: 4
-      },
-      data: data.map(item => { return { name: item.name, value: item.value } }),
-    }]
-  };
-  myChart.setOption(option);
-}
+document.querySelector('.h1').innerHTML = "新 能 源 汽 车 数 据 分 析 大 屏"
 
-function carateLineCharts(chartsName, node, data, title, yName) {
-  let div = document.createElement('div')
-  div.id = chartsName
-  div.style = 'width: 100%;height:100%;'
-  document.querySelector('#' + node).appendChild(div)
-  const chart = document.querySelector("#" + chartsName)
-  const myChart = echarts.init(chart)
-  option = {
-    title: {
-      text: title,
-      textStyle: titleStyle,
-    },
-    tooltip: {
-      trigger: 'axis'
-    },
-    grid: {
-      top: 10
-    },
-    legend: {
-      data: ['USA', 'CN', 'EU'],
-      top: '15%',
-      textStyle: fontStyle,
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true
-    },
-    toolbox: {
-      feature: {
-        saveAsImage: {}
-      }
-    },
-    xAxis: {
-      type: 'category',
-      boundaryGap: false,
-      data: data.map(item => item.year)
-    },
-    yAxis: {
-      type: 'value',
-      splitLine: {
-        show: false
-      }
-    },
-    series: [
-      {
-        name: 'USA',
-        type: 'line',
-        data: data.map(item => item.USA)
-      },
-      {
-        name: 'CN',
-        type: 'line',
-        data: data.map(item => item.CN)
-      },
-      {
-        name: 'EU',
-        type: 'line',
-        data: data.map(item => item.EU)
-      }
-    ]
-  };
-  myChart.setOption(option);
-}
+createDiv('contentBox', 'body', ['flex', 'flex-grow', 'relative'])
+createDiv('content', 'contentBox', ['flex', 'flex-grow','grid', 'grid-cols-10', 'z-50'])
+document.querySelector('#content')
 
-function createMap(charName, node) {
-  let div = document.createElement('div')
-  div.id = charName
-  div.style = 'width: 100%;height:100%;'
-  document.querySelector('#' + node).appendChild(div)
+createDiv('left', 'content', ['h-auto', 'col-span-3', 'flex', 'flex-col'])
+createDiv('middle', 'content', ['h-auto', 'col-span-4', 'flex', 'flex-col', 'border-r-2', 'border-l-2', 'border-blue-200', 'mt-2'])
+createDiv('right', 'content', ['h-auto', 'col-span-3', 'flex', 'flex-col'])
 
-  const myChart = echarts.init(document.getElementById(charName))
-  
-  echarts.registerMap('china', geoJson);
-  
-  const option = {
-    title: {
-      text: "各省新能源汽车保有量",
-      left: "center",
-      textStyle: titleStyle,
-    },
-    
-    tooltip: {
-      trigger: 'item'
-    },
-    
-    geo: {
-      map: 'china',
-      zoom: 1.2,
-      aspectScale: 0.75,
-      itemStyle: {
-        shadowColor:'rgb(58,115,192)',
-        shadowOffsetX: 10,
-        shadowOffsetY: 10,
-      },
-      regions: [{
-        name: '南海诸岛',
-        itemStyle: {
-          opacity: 0
-        }
-      }]
-    },
-    
-    visualMap: {
-      min: 0,
-      max: 90,
-      left: 'left',
-      text: ['High', 'Low'],
-      textStyle: {
-        color: 'white'
-      }, 
-      realtime: true,
-      calculable: false,
-      inRange: {
-        color: ['#72C6EF', '#004E8F']
-      }
-    },
-    
-    series: [{
-      name: '单位（万辆）',
-      type: 'map',
-      zoom: 1.2,
-      map: 'china',
-      label: {
-        show: false
-      },
-      data: newCar.map(item => {
-        return  {name: item.name, value: item.value};
-      }),
-      itemStyle: {
-        normal: {
-          borderColor: 'rgb(147, 235, 248)',
-          borderWidth: 1,
-        },
-        emphasis: {
-          areaColor: 'rgb(46,229,206)',
-          borderWidth: 0.1
-        }
-      }
-    }]
-  };
-  myChart.setOption(option);
-}
+createDiv('crad', 'left', ['h-full', 'm-3', 'p-2', 'bg-opacity-40', 'shadow-md','leftBox'])
+createDiv('crad2', 'left', ['h-full', 'm-3', 'p-2', 'bg-opacity-40', 'shadow-md', 'leftBox'])
 
-function createRight0(charName, node) {
-  let div = document.createElement('div')
-  div.id = charName
-  div.style = 'width: 100%;height:100%;'
-  document.querySelector('#' + node).appendChild(div)
+createDiv('middleOne', 'middle', ['h-1/3', 'm-3', 'middleBox', 'flex', 'flex-row', 'flex-nowrap'])
+createDiv('middleOneLeft', 'middleOne', ['border-r-2', 'h-full', 'w-1/5', 'flex', 'flex-col', 'space-y-2', 'p-2'])
+createDiv('middleOneRight', 'middleOne', ['h-full', 'w-4/5', 'p-2'])
+createContrast('xx', 'middleOneRight', contrast, '全国', 0)
+createButton('test', 'middleOneLeft', () => {createContrast('xx', 'middleOneRight', contrast, '全国')}, '全国',['h-1/6', 'border-2', 'border-blue-400', 'flex', 'flex-grow', 'text-white', 'text-base', 'justify-center', 'transition', 'duration-500', 'ease-in-out', 'hover:bg-blue-300', 'transform', 'hover:-translate-y-1', 'hover:scale-110'])
+createButton('test', 'middleOneLeft', () => {createContrast('xx', 'middleOneRight', contrast, '大众集团')}, '大众集团',['h-1/6', 'border-2', 'border-blue-400', 'flex', 'flex-grow', 'text-white', 'text-base', 'justify-center', 'transition', 'duration-500', 'ease-in-out', 'hover:bg-blue-300', 'transform', 'hover:-translate-y-1', 'hover:scale-110'])
+createButton('test', 'middleOneLeft', () => {createContrast('xx', 'middleOneRight', contrast, '长安汽车')}, '长安汽车',['h-1/6', 'border-2', 'border-blue-400', 'flex', 'flex-grow', 'text-white', 'text-base', 'justify-center', 'transition', 'duration-500', 'ease-in-out', 'hover:bg-blue-300', 'transform', 'hover:-translate-y-1', 'hover:scale-110'])
+createButton('test', 'middleOneLeft', () => {createContrast('xx', 'middleOneRight', contrast, '吉利')}, '吉利',['h-1/6', 'border-2', 'border-blue-400', 'flex', 'flex-grow', 'text-white', 'text-base', 'justify-center', 'transition', 'duration-500', 'ease-in-out', 'hover:bg-blue-300', 'transform', 'hover:-translate-y-1', 'hover:scale-110'])
+createButton('test', 'middleOneLeft', () => {createContrast('xx', 'middleOneRight', contrast, '五菱')}, '五菱',['h-1/6', 'border-2', 'border-blue-400', 'flex', 'flex-grow', 'text-white', 'text-base', 'justify-center', 'transition', 'duration-500', 'ease-in-out', 'hover:bg-blue-300', 'transform', 'hover:-translate-y-1', 'hover:scale-110'])
+createDiv('middleTwo', 'middle', ['h-2/3', 'm-3', 'middleBox'])
 
-  const myCharts = echarts.init(document.getElementById(charName))
+createDiv('right0', 'right', ['h-1/6', 'm-3', 'p-2', 'bg-opacity-40', 'shadow-md', 'rightBox'])
+createDiv('right1', 'right', ['h-3/6', 'm-3', 'shadow-md', 'rightBox'])
+createDiv('right2', 'right', ['h-2/6', 'm-3', 'p-2', 'bg-opacity-40', 'shadow-md', 'rightBox'])
 
-  const option = {
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
-    },
-    legend: {
-      data: ['Direct', 'Mail Ad', 'Klooo'],
-      textStyle: fontStyle,
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true
-    },
-    xAxis: {
-      type: 'value',
-      show: false,
-      boundaryGap: ['0%', '-%']
-    },
-    yAxis: {
-      type: 'category',
-      show: false,
-      data: ['Tue']
-    },
-    series: [{
-      name: 'Direct',
-      type: 'bar',
-      stack: 'total',
-      label: {
-        show: true
-      },
-      emphasis: {
-        focus: 'series'
-      },
-      data: [10]
-    },
-    {
-      name: 'Mail Ad',
-      type: 'bar',
-      stack: 'total',
-      label: {
-        show: true
-      },
-      emphasis: {
-        focus: 'series'
-      },
-      data: [150]
-    },
-    {
-      name: 'Klooo',
-      type: 'bar',
-      stack: 'total',
-      label: {
-        show: true
-      },
-      emphasis: {
-        focus: 'series'
-      },
-      data: [150]
-    }
-    ]
-  };
-  myCharts.setOption(option);
-}
+createNewCar('chartsRight0', 'right0')
+createWordCloud('chartsRight1', 'right1')
+carateBaCharts0('chartsRight2', 'right2')
+
+carateWorldSalesCharts('world', 'crad', world, '中、美、欧近五年新能源汽车销量(万辆)', '保有量')
+createRingCharts('ring', 'crad2', battery, '2020 年全球动力电池装机格局')
+
+createMap('map', 'middleTwo')
