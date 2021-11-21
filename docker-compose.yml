@@ -1,0 +1,10 @@
+version: '3.5'
+
+services:
+  new-energy-dashboard:
+    container_name: 'new-energy-dashboard'
+    ports:
+      - 8000:8000
+    build:
+      context: ./
+      dockerfile: Dockerfile
